@@ -48,60 +48,92 @@ class _LandingPageState extends State<LandingPage> {
                   return Expanded(
                     child: ListView.builder(
                       itemCount: state.products.length,
-
                       itemBuilder: (context, index) {
-                        final products = state.products[index];
+                        final product = state.products[index];
                         return Card(
-                          // color: Colors.grey,
-                          margin: EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 5,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
                           ),
-                          elevation: 3,
-                          child: ListTile(
-                            leading: Image.network(
-                              products.image,
-                              width: 60,
-                              height: 60,
-                              fit: BoxFit.cover,
-                            ),
-                            title: Text(
-                              products.name,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                              ),
-                            ),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                          margin: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                          elevation: 2,
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: Row(
                               children: [
-                                Text(
-                                  "₹${products.rate.toStringAsFixed(2)}  •  ${products.discount}% Off",
-                                  style: TextStyle(
-                                    color: Colors.green,
-                                    fontWeight: FontWeight.w600,
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: Image.network(
+                                    product.image,
+                                    width: 100,
+                                    height: 100,
+                                    fit: BoxFit.cover,
                                   ),
                                 ),
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.star,
-                                      color: Colors.amber,
-                                      size: 18,
-                                    ),
-                                    SizedBox(width: 4),
-                                    Text(
-                                      products.rating.toStringAsFixed(1),
-                                      style: TextStyle(fontSize: 14),
-                                    ),
-                                  ],
-                                ),
+                                SizedBox(width: 12),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        product.name,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      SizedBox(height: 4),
+                                      Text(
+                                        "₹${product.rate.toStringAsFixed(2)}",
+                                        style: TextStyle(
+                                          color: Colors.black87,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                      SizedBox(height: 2),
+                                      Text(
+                                        "${product.discount}% Off",
+                                        style: TextStyle(
+                                          color: Colors.green,
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      SizedBox(height: 6),
+                                      Row(
+                                        children: [
+                                          Icon(Icons.star, color: Colors.amber, size: 16),
+                                          SizedBox(width: 4),
+                                          Text(
+                                            product.rating.toStringAsFixed(1),
+                                            style: TextStyle(fontSize: 14),
+                                          ),
+                                          Spacer(),
+                                          ElevatedButton(
+                                            onPressed: () {},
+                                            style: ElevatedButton.styleFrom(
+                                              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                                              backgroundColor: Colors.deepPurple,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(6),
+                                              ),
+                                            ),
+                                            child: Text("Add", style: TextStyle(fontSize: 13)),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                )
                               ],
                             ),
                           ),
                         );
                       },
                     ),
+
                   );
                 } else {
                    return Text(

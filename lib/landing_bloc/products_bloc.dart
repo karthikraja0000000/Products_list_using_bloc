@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:productlist_bloc/repositary/api_repositary.dart';
 
 import '../model/model_class.dart';
@@ -11,8 +10,8 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
   final ProductRepo repository;
 
   ProductsBloc({required this.repository}) : super(ProductsInitial()) {
-    on<ProductsEvent>((event, emit) async {
-      if (event is FetchProducts) {
+    on<FetchProducts>((event, emit) async {
+
         emit(ProductsLoading());
         try {
           final products = await repository.fetchProducts();
@@ -20,7 +19,7 @@ class ProductsBloc extends Bloc<ProductsEvent, ProductsState> {
         } catch (e) {
           emit(ProductsFailed(error: e as String));
         }
-      }
+
     });
   }
 }
